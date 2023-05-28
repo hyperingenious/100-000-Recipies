@@ -11,3 +11,36 @@ const timeout = function (s) {
 // https://forkify-api.herokuapp.com/v2
 
 ///////////////////////////////////////
+const showRecipie = async function () {
+  try {
+    //prettier-ignore
+    const res = await fetch(
+      `https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bcd09`
+    );
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(`${data.message} ${res.status}`);
+    }
+
+    let { recipe } = data.data;
+    recipe = {
+      id: recipe.id,
+      title: recipe.title,
+      publisher: recipe.publisher,
+      sourceUrl: recipe.source_url,
+      imgage: recipe.image_url,
+      servings: recipe.servings,
+      cookingTime: recipe.cookingTime,
+      ingredients: recipe.ingredients,
+    };
+    console.log(recipe);
+  } catch (e) {
+    alert(e);
+  }
+};
+showRecipie();
+
+if (module.hot) {
+  module.hot.accept();
+}
