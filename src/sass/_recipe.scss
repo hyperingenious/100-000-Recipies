@@ -17,11 +17,11 @@
       position: absolute;
       top: 0;
       left: 0;
-      background-image: linear-gradient(
-        to right bottom,
-        $color-grad-1,
-        $color-grad-2
-      );
+      // background-image: linear-gradient(
+      //   to right bottom,
+      //   $color-grad-1,
+      //   $color-grad-2
+      // );
       opacity: 0.6;
     }
   }
@@ -152,7 +152,8 @@
   }
 
   &__quantity {
-    margin-right: 0.5rem;
+    // margin-right: 0.5rem;
+    font-weight: 600;
     flex: 0 0 auto;
   }
 
