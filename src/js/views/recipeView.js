@@ -1,5 +1,6 @@
 import icons from 'url:../../img/icons.svg';
 import { Fraction } from 'fractional';
+
 class RecipeView {
   #data;
   #parentElement = document.querySelector('.recipe');
@@ -10,7 +11,8 @@ class RecipeView {
     this.#clear();
     this.#parentElement.insertAdjacentHTML('afterbegin', markup);
   }
-  showSpinner() {
+
+  renderSpinner() {
     this.#clear();
     const html = `<div class="spinner">
           <svg>
@@ -78,9 +80,7 @@ class RecipeView {
           <div class="recipe__ingredients">
             <h2 class="heading--2">Recipe ingredients</h2>
             <ul class="recipe__ingredient-list">
-            ${data.ingredients
-              .map(ing => this.#generateMarkupIngredients(ing))
-              .join('')}
+            ${data.ingredients.map(this.#generateMarkupIngredients).join('')}
             </ul>
           </div>
 
