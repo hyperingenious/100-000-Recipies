@@ -1,11 +1,17 @@
 import { API_URL } from './config.js';
 import { getJSON } from './helpers.js';
 
-export const state = { recipe: {} };
+export const state = {
+  recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
+};
 
 export const loadRecipe = async function (id) {
   try {
-    const data = await getJSON(`${API_URL}/${id}`);
+    const data = await getJSON(`${API_URL}${id}`);
 
     const { recipe } = data.data;
     state.recipe = {
@@ -20,5 +26,24 @@ export const loadRecipe = async function (id) {
     };
   } catch (err) {
     console.error(`${err}, hamara Error 💣`);
+    throw err;
+  }
+};
+
+export const loadSearchResults = async function (query) {
+  try {
+    state.search.query = query;
+    const data = await getJSON(`${API_URL}?search=${query}`);
+
+    state.search.results = data.data.recipe.map(res => {
+      return {
+        id: res.id,
+        title: res.title,
+        publisher: res.publisher,
+        image: res.image_url,
+      };
+    });
+  } catch (err) {
+    console.error(err);
   }
 };

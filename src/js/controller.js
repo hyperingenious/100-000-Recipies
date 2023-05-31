@@ -24,7 +24,8 @@ const init = function () {
 
       // Displaying Data
     } catch (e) {
-      alert(e);
+      // alert(e);
+      recipeView.renderError();
     }
   };
   recipeView.addHandlerRender(controlRecipes);
@@ -34,3 +35,5 @@ init();
 if (module.hot) {
   module.hot.accept();
 }
+
+model.loadSearchResults('pizza');
