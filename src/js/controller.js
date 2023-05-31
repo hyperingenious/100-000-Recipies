@@ -6,31 +6,30 @@ import recipeView from './views/recipeView.js';
 // https://forkify-api.herokuapp.com/v2
 
 ///////////////////////////////////////
+const init = function () {
+  const controlRecipes = async function () {
+    try {
+      const id = window.location.hash.slice(1);
 
-const controlRecipes = async function () {
-  try {
-    const id = window.location.hash.slice(1);
+      if (!id) return;
 
-    if (!id) return;
+      // LOADING....
+      recipeView.renderSpinner();
 
-    // LOADING....
-    recipeView.renderSpinner();
+      // 1. Fetching Data
+      await model.loadRecipe(id);
 
-    // 1. Fetching Data
-    await model.loadRecipe(id);
+      //Rendering Recipe
+      recipeView.render(model.state.recipe);
 
-    //Rendering Recipe
-    recipeView.render(model.state.recipe);
-
-    // Displaying Data
-  } catch (e) {
-    alert(e);
-  }
+      // Displaying Data
+    } catch (e) {
+      alert(e);
+    }
+  };
+  recipeView.addHandlerRender(controlRecipes);
 };
-
-['hashchange', 'load'].forEach(ev =>
-  window.addEventListener(ev, controlRecipes)
-);
+init();
 
 if (module.hot) {
   module.hot.accept();

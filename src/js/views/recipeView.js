@@ -24,6 +24,11 @@ class RecipeView {
   #clear() {
     this.#parentElement.innerHTML = '';
   }
+
+  addHandlerRender(handler) {
+    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
+  }
+
   #genrateMarkup(data) {
     return `
     <figure class="recipe__fig">
@@ -109,7 +114,7 @@ class RecipeView {
                 <svg class="recipe__icon">
                   <use href="${icons}#icon-check"></use>
                 </svg>
-                <div class="recipe__quantity">🎇${
+                <div class="recipe__quantity">${
                   ing.quantity ? new Fraction(ing.quantity).toString() : ''
                 }
                 </div>
