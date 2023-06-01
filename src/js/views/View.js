@@ -2,6 +2,18 @@ import icons from 'url:../../img/icons.svg';
 
 export default class View {
   _data;
+  render(data) {
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      return this.renderError();
+    }
+
+    this._data = data;
+    const markup = this._generateMarkup(this._data);
+
+    this._clear();
+    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+  }
+
   renderSpinner() {
     this._clear();
     const html = `<div class="spinner">
@@ -42,17 +54,7 @@ export default class View {
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
-  render(data) {
-    if (!data || (Array.isArray(data) && data.length === 0)) {
-      return this.renderError();
-    }
 
-    console.log(data);
-    this._data = data;
-    const markup = this._generateMarkup(this._data);
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
   getQuery() {
     const query = this._parentElement.querySelector('.search__field').value;
     this._clearInput();

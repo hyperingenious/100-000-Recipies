@@ -39,7 +39,7 @@ class PaginationView extends View {
     }
 
     // Other page
-    if (curPage < numPages) {
+    if (curPage > 1 && curPage < numPages) {
       return `
         <button class="btn--inline pagination__btn--prev">
           <svg class="search__icon">
