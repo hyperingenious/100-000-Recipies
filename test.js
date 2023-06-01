@@ -1,5 +1,5 @@
 // Page 1 and other pages
-if (curPage < numPages && curPage === 1) {
+if (curPage === 1 && curPage < numPages) {
   return `
       <button class="btn--inline pagination__btn--next">
           <span>
