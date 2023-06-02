@@ -31,26 +31,26 @@ class RecipeView extends View {
               <span class="recipe__info-text">minutes</span>
             </div>
             <div class="recipe__info">
-              <svg class="recipe__info-icon">
-                <use href="${icons}#icon-users"></use>
-              </svg>
-              <span class="recipe__info-data recipe__info-data--people">${
-                data.servings
-              }</span>
-              <span class="recipe__info-text">servings</span>
+                  <svg class="recipe__info-icon">
+                    <use href="${icons}#icon-users"></use>
+                  </svg>
+                  <span class="recipe__info-data recipe__info-data--people">${
+                    data.servings
+                  }</span>
+                  <span class="recipe__info-text">servings</span>
 
-              <div class="recipe__info-buttons">
-                <button class="btn--tiny btn--increase-servings">
-                  <svg>
-                    <use href="${icons}#icon-minus-circle"></use>
-                  </svg>
-                </button>
-                <button class="btn--tiny btn--increase-servings">
-                  <svg>
-                    <use href="${icons}#icon-plus-circle"></use>
-                  </svg>
-                </button>
-              </div>
+                  <div class="recipe__info-buttons">
+                    <button class="btn--tiny btn--decrease-servings">
+                      <svg>
+                        <use href="${icons}#icon-minus-circle"></use>
+                      </svg>
+                    </button>
+                    <button class="btn--tiny btn--increase-servings">
+                      <svg>
+                        <use href="${icons}#icon-plus-circle"></use>
+                      </svg>
+                    </button>
+                  </div>
             </div>
             <div class="recipe__user-generated">
             </div>
