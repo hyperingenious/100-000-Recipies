@@ -3,6 +3,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
+import servingsView from './views/servingsView.js';
 
 // const recipeContainer = document.querySelector('.recipe');
 
@@ -23,10 +24,8 @@ const controlRecipes = async function () {
 
     //Rendering Recipe
     recipeView.render(model.state.recipe);
-
-    // Displaying Data
   } catch (e) {
-    // alert(e);
+    console.error(e);
     recipeView.renderError();
   }
 };
