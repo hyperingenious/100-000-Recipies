@@ -1,4 +1,5 @@
 import icons from 'url:../../img/icons.svg';
+import { Fraction } from 'fractional';
 
 export default class View {
   _data;
@@ -60,4 +61,23 @@ export default class View {
     this._clearInput();
     return query;
   }
+
+  // _generateMarkupIngredients(ing) {
+  //   return `
+  //   <li class="recipe__ingredient">
+  //     <svg class="recipe__icon">
+  //       <use href="${icons}#icon-check"></use>
+  //     </svg>
+  //     <div class="recipe__quantity"><strong style="padding-right:3px;">${
+  //       ing.quantity ? ing.quantity.toFixed(1) : ' '
+  //     } </strong></div>
+  //     <div class="recipe__description">${
+  //       ing.unit
+  //         ? `<span class="recipe__unit"><strong>${ing.unit} </strong></span>`
+  //         : ' '
+  //     }${ing.description}
+  //     </div>
+  //   </li>
+  //   `;
+  // }
 }
