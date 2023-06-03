@@ -19,6 +19,9 @@ const controlRecipes = async function () {
     // LOADING....
     recipeView.renderSpinner();
 
+    // 0. ud
+    resultsView.update(model.getSearchResultsPage());
+
     // 1. Fetching Data
     await model.loadRecipe(id);
 
