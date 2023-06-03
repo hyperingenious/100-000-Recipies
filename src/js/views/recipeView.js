@@ -22,6 +22,27 @@ class RecipeView extends View {
       if (+upTo > 0) handler(+upTo);
     });
   }
+  addHandlerBookmark(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--bookmark');
+      const bookmarked = Boolean(btn.dataset.bookmark);
+
+      if (!btn) return;
+      if (bookmarked) {
+        btn
+          .querySelector('use')
+          .setAttribute('href', `${icons}#icon-bookmark-fill`);
+        btn.dataset.bookmark = 'false';
+        console.log('Set to false');
+      }
+      if (!bookmarked) {
+        btn.querySelector('use').setAttribute('href', `${icons}#icon-bookmark`);
+        btn.dataset.bookmark = 'true';
+        console.log('Set to true');
+      }
+      handler(bookmarked);
+    });
+  }
 
   _generateMarkup(data) {
     return `
@@ -69,9 +90,11 @@ class RecipeView extends View {
             </div>
             <div class="recipe__user-generated">
             </div>
-            <button class="btn--round">
+            <button class="btn--round btn--bookmark" data-bookmark="${
+              this._data?.bookmarked ? true : false
+            }">
               <svg class="">
-                <use href="${icons}#icon-bookmark-fill"></use>
+                <use href="${icons}#icon-bookmark"></use>
               </svg>
             </button>
           </div>
