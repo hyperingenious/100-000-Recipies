@@ -104,35 +104,39 @@ class RecipeView extends View {
     `;
   }
   _generateMarkupIngredients(ing) {
-    // return ` <li class="recipe__ingredient">
-    //             <svg class="recipe__icon">
-    //               <use href="${icons}#icon-check"></use>
-    //             </svg>
-    //             <div class="recipe__quantity">${
-    //               ing.quantity ? new Fraction(ing.quantity).toString() : ''
-    //             }
-    //             </div>
-    //             <div class="recipe__description">
-    //             ${ing.quantity ? '<span class="recipe__unit">g</span>' : ''}
-    //             ${ing.description}
-    //             </div>
-    //           </li>`;
-    return `
-      <li class="recipe__ingredient">
-        <svg class="recipe__icon">
-          <use href="${icons}#icon-check"></use>
-        </svg>
-        <div class="recipe__quantity"><strong style="padding-right:3px;">${
-          ing.quantity ? ing.quantity.toFixed(1) : ' '
-        } </strong></div>
-        <div class="recipe__description">${
-          ing.unit
-            ? `<span class="recipe__unit"><strong>${ing.unit} </strong></span>`
-            : ' '
-        }${ing.description}
-        </div>
-      </li>
-      `;
+    return ` <li class="recipe__ingredient">
+                <svg class="recipe__icon">
+                  <use href="${icons}#icon-check"></use>
+                </svg>
+                <div class="recipe__quantity">${
+                  ing.quantity ? new Fraction(ing.quantity).toString() : ''
+                }
+                </div>
+                <div class="recipe__description">
+                ${
+                  ing.quantity
+                    ? `<span class="recipe__unit">${ing.unit}</span>`
+                    : ''
+                }
+                ${ing.description}
+                </div>
+              </li>`;
+    // return `
+    //   <li class="recipe__ingredient">
+    //     <svg class="recipe__icon">
+    //       <use href="${icons}#icon-check"></use>
+    //     </svg>
+    //     <div class="recipe__quantity"><strong style="padding-right:3px;">${
+    //       ing.quantity ? ing.quantity.toFixed(1) : ' '
+    //     } </strong></div>
+    //     <div class="recipe__description">${
+    //       ing.unit
+    //         ? `<span class="recipe__unit"><strong>${ing.unit} </strong></span>`
+    //         : ' '
+    //     }${ing.description}
+    //     </div>
+    //   </li>
+    //   `;
   }
 }
 export default new RecipeView();
