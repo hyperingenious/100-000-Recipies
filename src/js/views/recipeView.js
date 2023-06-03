@@ -11,6 +11,17 @@ class RecipeView extends View {
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler));
   }
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--update-servings');
+
+      if (!btn) return;
+
+      const { upTo } = btn.dataset;
+
+      if (+upTo > 0) handler(+upTo);
+    });
+  }
 
   _generateMarkup(data) {
     return `
@@ -40,12 +51,16 @@ class RecipeView extends View {
                   <span class="recipe__info-text">servings</span>
 
                   <div class="recipe__info-buttons">
-                    <button class="btn--tiny btn--decrease-servings">
+                    <button class="btn--tiny btn--update-servings" data-up-to="${
+                      this._data.servings - 1
+                    }">
                       <svg>
                         <use href="${icons}#icon-minus-circle"></use>
                       </svg>
                     </button>
-                    <button class="btn--tiny btn--increase-servings">
+                    <button class="btn--tiny btn--update-servings" data-up-to="${
+                      this._data.servings + 1
+                    }">
                       <svg>
                         <use href="${icons}#icon-plus-circle"></use>
                       </svg>
@@ -89,19 +104,35 @@ class RecipeView extends View {
     `;
   }
   _generateMarkupIngredients(ing) {
-    return ` <li class="recipe__ingredient">
-                <svg class="recipe__icon">
-                  <use href="${icons}#icon-check"></use>
-                </svg>
-                <div class="recipe__quantity">${
-                  ing.quantity ? new Fraction(ing.quantity).toString() : ''
-                }
-                </div>
-                <div class="recipe__description">
-                ${ing.quantity ? '<span class="recipe__unit">g</span>' : ''}
-                ${ing.description}
-                </div>
-              </li>`;
+    // return ` <li class="recipe__ingredient">
+    //             <svg class="recipe__icon">
+    //               <use href="${icons}#icon-check"></use>
+    //             </svg>
+    //             <div class="recipe__quantity">${
+    //               ing.quantity ? new Fraction(ing.quantity).toString() : ''
+    //             }
+    //             </div>
+    //             <div class="recipe__description">
+    //             ${ing.quantity ? '<span class="recipe__unit">g</span>' : ''}
+    //             ${ing.description}
+    //             </div>
+    //           </li>`;
+    return `
+      <li class="recipe__ingredient">
+        <svg class="recipe__icon">
+          <use href="${icons}#icon-check"></use>
+        </svg>
+        <div class="recipe__quantity"><strong style="padding-right:3px;">${
+          ing.quantity ? ing.quantity.toFixed(1) : ' '
+        } </strong></div>
+        <div class="recipe__description">${
+          ing.unit
+            ? `<span class="recipe__unit"><strong>${ing.unit} </strong></span>`
+            : ' '
+        }${ing.description}
+        </div>
+      </li>
+      `;
   }
 }
 export default new RecipeView();
