@@ -3,7 +3,7 @@ import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
-import servingsView from './views/servingsView.js';
+// import servingsView from './views/servingsView.js';
 
 // const recipeContainer = document.querySelector('.recipe');
 
@@ -56,8 +56,16 @@ const controlSearchResults = async function () {
   }
 };
 
+const controlServings = function (newServings) {
+  // Update the recipe servings in state
+  model.updateServings(newServings);
+  //Udate the view
+  recipeView.update(model.state.recipe);
+};
+
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addClickHandler(controlPagination);
 };
