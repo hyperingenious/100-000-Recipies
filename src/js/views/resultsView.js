@@ -7,23 +7,26 @@ class ResultView extends View {
   _errorMessage = 'recipe does not found, Please try another one';
 
   _generateMarkup(result) {
-    const markup = result
-      .map(res => {
-        return ` 
+    const markup = result.map(this._generateMarkupPreview).join('');
+    return markup;
+  }
+  _generateMarkupPreview(result) {
+    const id = window.location.hash.slice(1);
+
+    return ` 
         <li class="preview">
-            <a class="preview__link" href="#${res.id}">
+            <a class="preview__link ${
+              result.id == id ? 'preview__link--active' : ''
+            }" href="#${result.id}">
               <figure class="preview__fig">
-                <img src="${res.image}" alt="Test" />
+                <img src="${result.image}" alt="Test" />
               </figure>
               <div class="preview__data">
-                <h4 class="preview__title">${res.title}</h4>
-                <p class="preview__publisher">${res.publisher}</p>
+                <h4 class="preview__title">${result.title}</h4>
+                <p class="preview__publisher">${result.publisher}</p>
               </div>
             </a>
           </li>`;
-      })
-      .join('');
-    return markup;
   }
 }
 export default new ResultView();
