@@ -8,6 +8,7 @@ export const state = {
     results: [],
     page: 1,
   },
+  bookmarks: [],
 };
 
 export const loadRecipe = async function (id) {
@@ -57,6 +58,23 @@ export const getSearchResultsPage = function (page) {
   return state.search.results.slice(start, end);
 };
 
+export const addBookmark = function (recipe) {
+  //Add Bookmark
+  state.bookmarks.push(recipe);
+  // Mark current recipe as bookmark, by setting true
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = true;
+};
+export const removeBookmark = function (recipe) {
+  // Remove Bookmark
+  state.bookmarks.splice(
+    state.bookmarks.findIndex(arr => arr.id === recipe.id),
+    1
+  );
+
+  // unbookmark the bookmarked recipe
+  if (recipe.id === state.recipe.id) state.recipe.bookmarked = false;
+};
+
 export const updateServings = function (newServings) {
   console.log(state.recipe);
   state.recipe.ingredients.forEach(ing => {
@@ -64,4 +82,5 @@ export const updateServings = function (newServings) {
   });
   state.recipe.servings = newServings;
   console.log('hello');
+  console.log(state.recipe);
 };
