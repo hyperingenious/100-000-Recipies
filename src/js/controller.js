@@ -1,4 +1,5 @@
 import * as model from './model.js';
+import { MODAL_CLOSE_SEC } from './config.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
@@ -31,6 +32,14 @@ const controlRecipes = async function () {
 
     //Rendering Recipe
     recipeView.render(model.state.recipe);
+
+    // Success Message
+    addRecipeView.renderMessage();
+
+    // Removing overlay
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
   } catch (e) {
     console.error(e);
     recipeView.renderError();
@@ -87,6 +96,7 @@ const controlBookmarks = function () {
 const controlAddRecipe = async function (recipe) {
   try {
     await model.addRecipe(recipe);
+    recipeView.render(model.state.recipe);
   } catch (err) {
     console.error(err);
     addRecipeView.renderError(err.message);
