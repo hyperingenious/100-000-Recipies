@@ -3,7 +3,8 @@ import { Fraction } from 'fractional';
 
 export default class View {
   _data;
-  render(data) {
+
+  render(data, render = true) {
     if (!data || (Array.isArray(data) && data.length === 0)) {
       return this.renderError();
     }
@@ -11,9 +12,12 @@ export default class View {
     this._data = data;
     const markup = this._generateMarkup(this._data);
 
+    if (!render) return markup;
+
     this._clear();
     this._parentElement.insertAdjacentHTML('afterbegin', markup);
   }
+
   update(data) {
     this._data = data;
     const newMarkup = this._generateMarkup(data);
