@@ -32,14 +32,6 @@ const controlRecipes = async function () {
 
     //Rendering Recipe
     recipeView.render(model.state.recipe);
-
-    // Success Message
-    addRecipeView.renderMessage();
-
-    // Removing overlay
-    setTimeout(function () {
-      addRecipeView.toggleWindow();
-    }, MODAL_CLOSE_SEC * 1000);
   } catch (e) {
     console.error(e);
     recipeView.renderError();
@@ -95,8 +87,27 @@ const controlBookmarks = function () {
 };
 const controlAddRecipe = async function (recipe) {
   try {
+    // render spinner
+    addRecipeView.renderSpinner();
+
     await model.addRecipe(recipe);
+
+    // render recipe
     recipeView.render(model.state.recipe);
+
+    // Success Message
+    addRecipeView.renderMessage();
+
+    //Render bookmarks view
+    bookmarksView.render(model.state.bookmarks);
+
+    //Change url
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    // Removing overlay
+    setTimeout(function () {
+      addRecipeView.toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
   } catch (err) {
     console.error(err);
     addRecipeView.renderError(err.message);
