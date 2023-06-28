@@ -13,6 +13,36 @@ import View from './views/View.js';
 
 // https://forkify-api.herokuapp.com/v2
 
+/**
+ * Onload check for the device
+ */
+window.addEventListener('load', function () {
+  const detectDeviceType = () => {
+    const userAgent = navigator.userAgent;
+    const mobileUserAgents = [
+      /Android/i,
+      /webOS/i,
+      /iPhone/i,
+      /iPad/i,
+      /iPod/i,
+      /BlackBerry/i,
+      /IEMobile/i,
+      /Opera Mini/i,
+    ];
+
+    return mobileUserAgents.some(userAgentPattern =>
+      userAgent.match(userAgentPattern)
+    );
+  };
+
+  const isOpenedInPhone = detectDeviceType();
+  if (isOpenedInPhone) {
+    alert(
+      'The App is not build for small screens, switch to DESKTOP MODE for better experience'
+    );
+  }
+});
+
 ///////////////////////////////////////
 const controlRecipes = async function () {
   try {
